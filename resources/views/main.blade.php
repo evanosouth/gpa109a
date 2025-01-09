@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> <!-- Yield --> </title>
+    <title> @yield('title') </title>
     <!-- Bootstrap Assets CSS -->
 
     {{-- NOTICE THIS --}}
@@ -142,6 +142,7 @@
 
         <div class="mx-2 p-1 foot">
             <!-- Yield -->
+            @yield('content')
         </div>
 
         <footer class="text-center p-3">
