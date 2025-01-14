@@ -27,7 +27,7 @@ Route::middleware(['auth', 'cekLevel:superadmin,admin'])->group(function(){
 
         Route::get('/pegawai', 'index');
 
-        Route::get('/pegawai/add', 'store')->name('addPegawai');
+        Route::post('/pegawai/add', 'store')->name('addPegawai');
 
 
     });

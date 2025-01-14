@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class pegawaiController extends Controller
 {
@@ -27,7 +29,26 @@ class pegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'level' => 'required',
+        ]);
+
+        $save = new User();
+        $save->name = $request->name;
+        $save->email = $request->email;
+        $save->password = Hash::make($request->password);
+        $save->level = $request->level;
+        $save->save();
+
+        return redirect()->back()->with(
+            'message',
+            'Data Pegawai berhasil ditambahkan'
+        );
+
+        // @yehezkielgulltom
     }
 
     /**
