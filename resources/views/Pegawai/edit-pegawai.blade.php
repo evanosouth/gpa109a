@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3 class="mb-3 mt-2">Data Pegawai</h3>
+        <h3 class="mt-2 mb-3">Data Pegawai</h3>
         <nav aria-label="breadcrumb" class="mb-1">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('/pegawai')}}">Data Pegawai</a></li>
@@ -23,11 +23,11 @@
                             @csrf
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="form-outline mb-4">
+                                        <div class="mb-4 form-outline">
                                             <input hidden type="text" id="pegawai-id" name="id">
 
                                             <label class="form-label" for="name">Nama Lengkap</label>
-                                            <input type="text" value="{{ old('name') }}" name="name" id="pegawai-name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap..."/>
+                                            <input type="text" value="{{ old('name', $getData->name) }}" name="name" id="pegawai-name" class="form-control @error('name') is-invalid @enderror" placeholder="Nama Lengkap..."/>
                                             @error('name')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -36,9 +36,9 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="form-outline mb-4">
+                                        <div class="mb-4 form-outline">
                                             <label class="form-label" for="email">Email</label>
-                                            <input type="email" value="{{ old('email') }}" name="email" id="pegawai-email" class="form-control @error('email') is-invalid @enderror" placeholder="Email Anda"/>
+                                            <input type="email" value="{{ old('email', $getData->email) }}" name="email" id="pegawai-email" class="form-control @error('email') is-invalid @enderror" placeholder="Email Anda"/>
                                             @error('email')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -47,7 +47,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="form-outline mb-4">
+                                        <div class="mb-4 form-outline">
                                             <label class="form-label" for="password">Password Baru??</label>
                                             <input type="text" value="{{ old('password') }}" name="password" id="pegawai-password" class="form-control @error('password') is-invalid @enderror" placeholder="Password Anda..."/>
                                             @error('password')

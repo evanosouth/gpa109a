@@ -42,9 +42,11 @@
 
                         <div class="mx-3 my-4 row">
                             <div class="col-6 bg-">
-                                <a href="{{ url('/pegawai/add') }}" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPegawai">
-                                    Pegawai Baru <i class="fa-solid fa-plus"></i>
-                                </a>
+                                @if (Auth::user()->level == 'superadmin')
+                                    <a href="{{ url('/pegawai/add') }}" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addPegawai">
+                                        Pegawai Baru <i class="fa-solid fa-plus"></i>
+                                    </a>
+                                @endif
                             </div>
                             <div class="col-6">
                                 <form action="">
@@ -70,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($data as $item)
+                                @foreach ($data as $item)
                                     <tr>
                                         <td></td>
                                         <td>
@@ -90,10 +92,10 @@
                                             </a>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $data->links() }} --}}
+                        {{ $data->links() }}
 
                     </div>
                 </div>

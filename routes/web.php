@@ -29,11 +29,12 @@ Route::middleware(['auth', 'cekLevel:superadmin,admin'])->group(function(){
 
         Route::post('/pegawai/add', 'store')->name('addPegawai');
 
+        Route::get('pegawai/edit/{id}', 'edit');
+        Route::post('pegawai/edit/{id}', 'update'); 
+
+        Route::get('/pegawai/delete/{id}', 'destroy'); //ketik baris ini
 
     });
-
-
-
 
 
     /**

@@ -11,9 +11,18 @@ class pegawaiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Pegawai.pegawai');
+        $search = $request->input('search');
+
+        $data = User::where('name', 'like', "%{$search}%")
+        ->orWhere('level', 'like', "%{$search}%")
+        ->paginate();
+
+        // dd($data);
+        return view('Pegawai.pegawai', compact(
+            'data'
+        ));
     }
 
     /**
@@ -64,7 +73,11 @@ class pegawaiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $getData = User::find($id);
+        // dd($getData);
+        return view('Pegawai.edit-pegawai', compact(
+            'getData',
+        ));
     }
 
     /**
@@ -72,7 +85,42 @@ class pegawaiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'nullable|email',
+            'password' => 'nullable|min:6',
+            'level' => 'nullable',
+        ]);
+
+        $updateUser = User::find($id);
+        $updateUser->name = $request->name;
+
+        if ($request->filled('email') && $request -> email != $updateUser->email) {
+            $request->validate([
+                'emaiil' => 'unique:users,email',
+            ], [
+                'email.unique' => 'Email Sudah Terdaftar'
+            ]);
+
+            $updateUser->email = $request->email;
+        }
+
+        if ($request->filled('password')) {
+            $updateUser->password = Hash::make($request->password);
+        }
+
+        if ($request->filled('level')) {
+            $updateUser->level = $request->level;
+        }
+
+        //untuk Save
+        $updateUser->save();
+
+        return redirect('/pegawai')->with(
+            'message',
+            'Data Pegawai berhasil diperbaharui'
+        );
+
     }
 
     /**
@@ -80,6 +128,12 @@ class pegawaiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $getData = User::find($id);
+        $getData->delete();
+
+        return redirect()->back()->with(
+            'message',
+            'Data Pegawai berhasil dihapus!!!'
+        );
     }
 }
