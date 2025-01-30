@@ -15,8 +15,8 @@ class pegawaiController extends Controller
     {
         $search = $request->input('search');
 
-        $data = User::where('name', 'like', "%{$search}%")
-        ->orWhere('level', 'like', "%{$search}%")
+        $data = User::where('name', 'LIKE', '%' . $search . '%')
+        ->orWhere('level', 'LIKE', '%' . $search . '%')
         ->paginate();
 
         // dd($data);

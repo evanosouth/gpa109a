@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\pegawaiController;
+use App\Http\Controllers\suplierController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -73,6 +74,20 @@ Route::middleware(['auth', 'cekLevel:superadmin,admin'])->group(function(){
     /**
      * Ini routing Suplier
      */
+    Route::controller(suplierController::class)->group(function(){
+        
+        Route::get('/suplier', 'index');
+        
+        Route::get('/suplier/add', 'create');
+        Route::post('/suplier/add', 'store');
+        
+        Route::get('/suplier/edit/{id}', 'edit');
+        Route::post('/suplier/edit/{id}', 'update');
+        
+        Route::get('/suplier/{id}', 'destroy');
+        
+
+    });
 
 
 });

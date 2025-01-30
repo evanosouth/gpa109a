@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container-fluid">    
-        <h3 class="mb-3 mt-2">Data Suplier</h3>
+        <h3 class="mt-2 mb-3">Data Suplier</h3>
         <nav aria-label="breadcrumb" class="mb-1">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active" aria-current="page">Data Suplier</li>
@@ -15,10 +15,10 @@
 
         <div class="row">
             <div class="col">
-                <div class="card mt-3">
+                <div class="mt-3 card">
                     <div class="card-header">
                         <div class="d-flex">
-                            <div class="w-100 pt-1">
+                            <div class="pt-1 w-100">
                                 <strong>Data Suplier</strong>
                             </div>
                             <div class="w-100 text-end">
@@ -41,7 +41,7 @@
                             </script>
                         @endif
 
-                        <div class="row mx-3 my-4">
+                        <div class="mx-3 my-4 row">
                             <div class="col-6 bg-">
                                 <a href="{{ url('/suplier/add') }}" class="btn btn-primary btn-sm">
                                     Suplier Baru <i class="fa-solid fa-plus"></i>
@@ -72,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($data as $item)
+                                @foreach ($data as $item)
                                     <tr>
                                         <td></td>
                                         <td>
@@ -94,10 +94,10 @@
                                              
                                         </td>
                                     </tr>   
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $data->links() }} --}}
+                        {{ $data->links() }}
 
                     </div>
                 </div>
