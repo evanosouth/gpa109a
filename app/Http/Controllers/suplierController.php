@@ -37,14 +37,14 @@ class suplierController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_suplier' => 'required',
+            'nasi_goreng' => 'required',
             'email' => 'required',
             'alamat' => 'required',
             'telp' => 'required|numeric',
             'tgl_terdaftar' => 'required',
             'status' => 'required',
         ], [
-            'nama_suplier.required' => 'Data Wajib diisi',
+            'nasi_goreng.required' => 'Data Wajib diisi',
             'email.required' => 'Data Wajib diisi',
             'alamat.required' => 'Data Wajib diisi',
 
@@ -56,12 +56,12 @@ class suplierController extends Controller
         ]);
 
         $saveSuplier = new suplier();
-        $saveSuplier->nama_suplier = $request->nama_suplier;
-        $saveSuplier->email = $request->email;
-        $saveSuplier->alamat = $request->alamat;
-        $saveSuplier->telp = $request->telp;
+        $saveSuplier->nama_suplier  = $request->nasi_goreng;
+        $saveSuplier->email         = $request->email;
+        $saveSuplier->alamat        = $request->alamat;
+        $saveSuplier->telp          = $request->telp;
         $saveSuplier->tgl_terdaftar = $request->tgl_terdaftar;
-        $saveSuplier->status = $request->status;
+        $saveSuplier->status        = $request->status;
         $saveSuplier->save();
 
         return redirect('/suplier')->with(

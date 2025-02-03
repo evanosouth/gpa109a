@@ -26,7 +26,7 @@
                                 <div class="col">
                                     <div class="mb-4 form-outline">
                                         <label class="form-label" for="nama_suplier">Nama</label>
-                                        <input type="text" value="{{ old('nama_suplier') }}" name="nama_suplier" id="nama_suplier" class="form-control @error('nama_suplier') is-invalid @enderror" placeholder="Nama Suplier..."/>
+                                        <input type="text" value="{{ old('nama_suplier') }}" name="nasi_goreng" id="nama_suplier" class="form-control @error('nama_suplier') is-invalid @enderror" placeholder="Nama Suplier..."/>
                                         @error('nama_suplier')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
