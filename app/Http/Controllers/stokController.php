@@ -11,9 +11,18 @@ class stokController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Stok.stok');
+        $search = $request->input('search');
+
+        $getData = stok::with('getSuplier')
+        ->where('kode_barang', 'LIKE', '%' . $search . '%')
+        ->orWhere('nama_barang', 'LIKE', '%' . $search . '%')
+        ->paginate();
+
+        return view('Stok.stok', compact(
+            'getData'
+        ));
     }
 
     /**
@@ -39,7 +48,7 @@ class stokController extends Controller
             'nama_barang' => 'required',
             'harga' => 'required',
             'stok' => 'required',
-            'suplier_id' => 'required',
+            'suplier' => 'required',
             'cabang' => 'required',
         ]);
 
@@ -48,10 +57,12 @@ class stokController extends Controller
         $saveStok->nama_barang = $request->nama_barang;
         $saveStok->harga = $request->harga;
         $saveStok->stok = $request->stok;
-        $saveStok->suplier_id = $request->suplier_id;
+        $saveStok->suplier_id = $request->suplier;
         $saveStok->cabang = $request->cabang;
+        
+        $saveStok->save();
+        // dd($saveStok);
 
-        dd($saveStok);
         return redirect('/stok')->with(
             'message',
             'Stok ' . $request->nama_barang . ' ditambahkan!'
@@ -71,7 +82,15 @@ class stokController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
+        $getDataStokId = stok::with('getSuplier')->find($id);
+        $suplier = suplier::all();
+
+        return view('Stok.edit-stok', compact(
+            'getDataStokId',
+            'suplier'
+        ));
+
     }
 
     /**
@@ -79,7 +98,30 @@ class stokController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'harga' => 'required',
+            'stok' => 'required',
+            'suplier' => 'required',
+            'cabang' => 'required',
+        ]);
+
+        $saveStok = stok::find($id);
+        $saveStok->kode_barang = $request->kode_barang;
+        $saveStok->nama_barang = $request->nama_barang;
+        $saveStok->harga = $request->harga;
+        $saveStok->stok = $request->stok;
+        $saveStok->suplier_id = $request->suplier;
+        $saveStok->cabang = $request->cabang;
+        
+        $saveStok->save();
+        // dd($saveStok);
+
+        return redirect('/stok')->with(
+            'message',
+            'Stok ' . $request->nama_barang . ' diperbaharui!'
+        );
     }
 
     /**
