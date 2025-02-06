@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\barangMasukController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\pegawaiController;
 use App\Http\Controllers\pelangganController;
@@ -64,6 +65,15 @@ Route::middleware(['auth', 'cekLevel:superadmin,admin'])->group(function(){
     /**
      * Ini routing Barang Masuk
      */
+    Route::controller(barangMasukController::class)->group(function(){
+        Route::get('/barang-masuk', 'index');
+
+        Route::get('/barang-masuk/add', 'create');
+        Route::post('/barang-masuk/add', 'store');
+
+
+
+    });
 
 
 
