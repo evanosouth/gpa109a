@@ -12,9 +12,27 @@ class barangMasukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Barang.BarangMasuk.barang-masuk');
+        $query = barangMasuk::with(
+            'getStok',
+            'getSuplier',
+            'getAdmin',
+        );
+
+        if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
+            $query->whereBetween('tanggal_faktur', [
+                $request->tanggal_awal,
+                $request->tanggal_akhir,
+            ]);
+        }
+
+        $query->orderBy('created_at', 'desc');
+        $getData = $query->paginate(10);
+
+        return view('Barang.BarangMasuk.barang-masuk', compact(
+            'getData'
+        ));
     }
 
     /**
@@ -72,34 +90,32 @@ class barangMasukController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $barangMasuk = barangMasuk::find($id);
+
+            $get_Id_Stok = $barangMasuk->nama_barang_id;
+            $get_Jumlah_barang_masuk = $barangMasuk->jumlah_barang_masuk;
+
+
+                $getItemBarang = stok::find($get_Id_Stok);
+                    $getStok = $getItemBarang->stok;
+
+                    $updateStok = $getStok - $get_Jumlah_barang_masuk;
+                
+                $getItemBarang->stok = $updateStok;
+                $getItemBarang->save();
+
+        $barangMasuk->delete();
+
+        return redirect('/barang-masuk')->with(
+            'message',
+            'Data barang dihapus'
+        );
+
     }
+
+
 }

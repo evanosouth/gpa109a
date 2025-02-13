@@ -108,11 +108,33 @@ Barang Masuk
                             <th class="text-center">Aksi</th>
                         </thead>
                         <tbody>
-                            
+                            @foreach ($getData as $item)
+                                <tr>
+                                    <td class="text-center">
+                                        {{ (($getData->currentPage() - 1) * $getData->perPage()) + $loop->iteration }} 
+                                    </td>
+                                    <td class="text-center">{{ Carbon\Carbon::parse($item->tanggal_faktur)->format('d/m/Y') }}</td>
+                                    <td>{{ $item->getStok->nama_barang }}</td>
+                                    <td class="text-center">{{ $item->getSuplier->nama_suplier}}</td>
+                                    <td>{{ 'Rp' . number_format($item->harga, 0, ',', '.') }}</td>
+                                    <td class="text-center">{{ $item->jumlah_barang_masuk}}</td>
+                                    <td class="text-center">{{ $item->getAdmin->name}}</td>
+                                    <td class="text-center">{{ $item->getStok->cabang }}</td>
+                                    <td class="text-center">
+                                        <a 
+                                            href="{{ url('/barang-masuk') }}/{{$item->id}}" 
+                                            class="btn btn-danger"
+                                            onclick="return confirm('Menghapus data dapat menyebabkan beberapa kekeliruan dalam data stok!!!, yakin hapus data?')"
+                                            title="Hapus">
+                                            
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
-                        
                     </table>
-
+                    {{ $getData->links() }}
                 </div>
             </div>
         </div>
