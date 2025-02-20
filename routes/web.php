@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\barangKeluarController;
 use App\Http\Controllers\barangMasukController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\pegawaiController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\suplierController;
 use Illuminate\Support\Facades\Route;
 
 
+
+// Route::get('/', [AuthController::class, 'homepage']);
 
 Route::get('/', [AuthController::class, 'index']);
 Route::post('/', [AuthController::class, 'login'])->name('login');
@@ -74,12 +77,19 @@ Route::middleware(['auth', 'cekLevel:superadmin,admin'])->group(function(){
     });
 
 
-
     /**
      * Ini routing Barang Keluar
      */
+    Route::controller(barangKeluarController::class)->group(function(){
+        Route::get('/barang-keluar', 'index');
+
+        Route::get('/barang-keluar/add', 'create');
+        Route::post('/barang-keluar/add', 'store');
+
+        Route::post('/barang-keluar/save', 'saveBarangKeluar')->name('addBarangKeluar');
 
 
+    });
 
 
 

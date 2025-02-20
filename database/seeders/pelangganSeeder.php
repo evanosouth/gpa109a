@@ -18,7 +18,7 @@ class pelangganSeeder extends Seeder
         $faker = Faker::create();
         $data = [];
 
-        for ($i=0; $i < 500; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
             $data[] = [
                 'nama_pelanggan' => $faker->name,
                 'telp' => $faker->numerify($faker->randomElement([

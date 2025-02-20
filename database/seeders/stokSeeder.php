@@ -27,7 +27,7 @@ class stokSeeder extends Seeder
             'Aceh' => 'ACH',
         ];
 
-        for ($i=0; $i < 200; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
 
             $randomArea = $faker->randomElement($Areas);
 
@@ -36,7 +36,7 @@ class stokSeeder extends Seeder
                 'nama_barang' => $faker->word('10', true),
                 'harga' => $faker->numberBetween(10000, 750000),
                 'stok' => $faker->numberBetween(10, 70),
-                'suplier_id' => $faker->numberBetween(1, 100),
+                'suplier_id' => $faker->numberBetween(1, 50),
                 'cabang' => $randomArea,
             ];
         }
