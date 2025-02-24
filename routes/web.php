@@ -82,11 +82,13 @@ Route::middleware(['auth', 'cekLevel:superadmin,admin'])->group(function(){
      */
     Route::controller(barangKeluarController::class)->group(function(){
         Route::get('/barang-keluar', 'index');
-
+        
         Route::get('/barang-keluar/add', 'create');
         Route::post('/barang-keluar/add', 'store');
-
+        
         Route::post('/barang-keluar/save', 'saveBarangKeluar')->name('addBarangKeluar');
+        
+        Route::get('/barang-keluar/print/{id}', 'print');
 
 
     });
