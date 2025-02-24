@@ -90,6 +90,8 @@ Route::middleware(['auth', 'cekLevel:superadmin,admin'])->group(function(){
         
         Route::get('/barang-keluar/print/{id}', 'print');
 
+        Route::get('/barang-keluar/{id}', 'destroy');
+
 
     });
 
